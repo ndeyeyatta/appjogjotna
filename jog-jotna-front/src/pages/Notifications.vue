@@ -62,5 +62,5 @@ async function toutLire() {
 }
 
 const typeIcone  = t => ({ alerte:'⚠', observation:'💬', seance:'📅', rapport:'📄', systeme:'⚙' }[t] || '🔔');
-const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '—';
+const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : ':';
 </script>

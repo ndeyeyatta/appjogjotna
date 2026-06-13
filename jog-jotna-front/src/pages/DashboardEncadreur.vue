@@ -2,7 +2,7 @@
   <AppLayout>
     <div class="bg-blue-800 px-4 pt-4 pb-6">
       <div class="flex items-center justify-between">
-        <div><h1 class="text-white text-lg font-bold">{{ authStore.user?.prenom }} — Encadreur</h1><p class="text-blue-200 text-sm">{{ dateAujourdhui }}</p></div>
+        <div><h1 class="text-white text-lg font-bold">{{ authStore.user?.prenom }} - Encadreur</h1><p class="text-blue-200 text-sm">{{ dateAujourdhui }}</p></div>
         <button @click="$router.push('/notifications')" class="relative text-white text-2xl">🔔
           <span v-if="authStore.notifNonLues>0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ authStore.notifNonLues }}</span>
         </button>

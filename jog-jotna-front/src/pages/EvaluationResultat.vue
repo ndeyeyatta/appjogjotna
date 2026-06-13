@@ -11,7 +11,7 @@
         <!-- En-tête -->
         <div class="bg-blue-50 rounded-xl p-4 mb-4 text-center">
           <p class="font-bold text-blue-800 text-lg">{{ evaluation.enfant?.prenom }} {{ evaluation.enfant?.nom }}</p>
-          <p class="text-blue-600 text-sm">{{ dimensionLabel(evaluation.dimension) }} — {{ formatDate(evaluation.date_eval) }}</p>
+          <p class="text-blue-600 text-sm">{{ dimensionLabel(evaluation.dimension) }} : {{ formatDate(evaluation.date_eval) }}</p>
           <div class="mt-3">
             <span class="text-4xl font-bold" :class="couleurScore(evaluation.score_global)">
               {{ evaluation.score_global }}%
@@ -80,5 +80,5 @@ const valeurLabel    = v => ({ 0:'Non acquis', 1:'En cours', 2:'Acquis' }[v] || 
 const valeurBadge    = v => ({ 0:'bg-red-100 text-red-700', 1:'bg-amber-100 text-amber-700', 2:'bg-green-100 text-green-700' }[v] || '');
 const couleurScore   = s => s >= 75 ? 'text-green-600' : s >= 60 ? 'text-amber-600' : 'text-red-600';
 const barreScore     = s => s >= 75 ? 'bg-green-500' : s >= 60 ? 'bg-amber-500' : 'bg-red-500';
-const formatDate     = d => d ? new Date(d).toLocaleDateString('fr-FR') : '—';
+const formatDate     = d => d ? new Date(d).toLocaleDateString('fr-FR') : ':';
 </script>

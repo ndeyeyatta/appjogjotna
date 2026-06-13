@@ -54,8 +54,12 @@ const form = ref({ date_seance: '', heure: '', lieu: '', enfant_ids: [] });
 
 onMounted(async () => {
   try {
-    const { data } = await axios.get('/api/enfants');
-    enfants.value = data.data || data;
+    const [eRes, pRes] = await Promise.all([
+      axios.get('/api/enfants'),
+      axios.get('/api/parametres'),
+    ]);
+    enfants.value = eRes.data.data || eRes.data;
+    form.value.lieu = pRes.data.lieu_seance_defaut || '';
   } catch {}
 });
 

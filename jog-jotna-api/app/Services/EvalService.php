@@ -55,8 +55,17 @@ class EvalService {
     }
 
     private function genererAlerte(Evaluation $eval, Enfant $enfant, array $r): Alerte {
-        $alerte = Alerte::create(['enfant_id'=>$enfant->id,'evaluation_id'=>$eval->id,'type_alerte'=>$eval->dimension,'niveau'=>$r['urgent']?'urgent':'modere','message'=>"Retard détecté chez {$enfant->nom_complet}. {$eval->dimension_libelle}. Score:{$r['score']}%.",'statut'=>'active']);
-        $this->notifierActeurs($enfant,$alerte);
+        $existing = Alerte::where('evaluation_id', $eval->id)->first();
+        if ($existing) return $existing;
+        $alerte = Alerte::create([
+            'enfant_id' => $enfant->id,
+            'evaluation_id' => $eval->id,
+            'type_alerte' => $eval->dimension,
+            'niveau' => $r['urgent'] ? 'urgent' : 'modere',
+            'message' => "Retard détecté chez {$enfant->nom_complet}. {$eval->dimension_libelle}. Score:{$r['score']}%.",
+            'statut' => 'active',
+        ]);
+        $this->notifierActeurs($enfant, $alerte);
         return $alerte;
     }
 

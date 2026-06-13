@@ -23,7 +23,7 @@
         <div class="space-y-3">
           <div class="flex justify-between">
             <span class="text-gray-400 text-sm">Téléphone</span>
-            <span class="text-gray-700 text-sm font-semibold">{{ authStore.user?.telephone || '—' }}</span>
+            <span class="text-gray-700 text-sm font-semibold">{{ authStore.user?.telephone || ':' }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400 text-sm">Langue</span>

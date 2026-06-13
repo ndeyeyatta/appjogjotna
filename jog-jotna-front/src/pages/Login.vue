@@ -43,7 +43,7 @@
         </div>
         <p class="text-center text-xs text-gray-400 mt-4">🔒 Connexion sécurisée HTTPS</p>
       </div>
-      <p class="text-center text-blue-200 text-xs mt-4">JÒG JOTNA v1.0 — Diagambal © 2025</p>
+      <p class="text-center text-blue-200 text-xs mt-4">JÒG JOTNA v1.0 - Diagambal © 2025</p>
     </div>
   </div>
 </template>

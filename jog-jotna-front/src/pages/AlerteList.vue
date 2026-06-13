@@ -17,7 +17,7 @@
           </div>
           <BadgeAlerte :niveau="a.niveau" />
         </div>
-        <div class="flex gap-2 mt-3">
+        <div v-if="authStore.user?.role !== 'parent'" class="flex gap-2 mt-3">
           <button @click="prendreEnCharge(a.id)" class="flex-1 bg-blue-600 text-white text-xs py-2 rounded-lg font-semibold">
             Prendre en charge
           </button>
@@ -63,7 +63,7 @@ async function cloturer(id) {
   await charger();
 }
 
-const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR') : '—';
+const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR') : '-';
 
 onMounted(charger);
 </script>

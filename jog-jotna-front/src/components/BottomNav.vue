@@ -24,8 +24,8 @@ const props = defineProps({
 const menus = {
   parent: [
     { to: '/dashboard/parent',    icon: '🏠', label: 'Accueil' },
+    { to: '/enfants',             icon: '👶', label: 'Enfants' },
     { to: '/observations/creer',  icon: '✏',  label: 'Signaler' },
-    { to: '/notifications',       icon: '🔔', label: 'Alertes' },
     { to: '/profil',              icon: '👤', label: 'Profil' },
   ],
   encadreur: [
@@ -43,7 +43,7 @@ const menus = {
   admin: [
     { to: '/dashboard/responsable', icon: '🏠', label: 'Accueil' },
     { to: '/admin/utilisateurs',    icon: '👥', label: 'Comptes' },
-    { to: '/rapports',              icon: '📊', label: 'Rapports' },
+    { to: '/admin/config',          icon: '⚙',  label: 'Config' },
     { to: '/profil',                icon: '👤', label: 'Profil' },
   ],
 };

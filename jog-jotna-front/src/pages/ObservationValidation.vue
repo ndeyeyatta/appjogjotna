@@ -11,7 +11,7 @@
         <div class="flex items-start justify-between gap-2 mb-2">
           <div>
             <p class="font-bold text-sm">{{ o.enfant?.prenom }} {{ o.enfant?.nom }}</p>
-            <p class="text-xs text-gray-500">{{ o.categorie }} — {{ o.parent?.prenom }} {{ o.parent?.nom }}</p>
+            <p class="text-xs text-gray-500">{{ o.categorie }} : {{ o.parent?.prenom }} {{ o.parent?.nom }}</p>
             <p class="text-xs text-gray-400">{{ formatDate(o.date_obs) }}</p>
           </div>
           <span class="text-xs px-2 py-1 rounded-full font-semibold"
@@ -84,7 +84,7 @@ async function rejeter(id) {
   finally { actions[id] = false; }
 }
 
-const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—';
+const formatDate = d => d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ':';
 
 onMounted(charger);
 </script>

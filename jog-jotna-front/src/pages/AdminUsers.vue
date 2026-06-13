@@ -56,6 +56,12 @@
             class="text-xs text-red-600 font-semibold px-2 py-1">Désactiver</button>
         </div>
       </div>
+      <div class="grid grid-cols-2 gap-3 mt-2">
+        <button @click="$router.push('/admin/config')"
+          class="bg-violet-600 text-white rounded-xl p-3 text-center text-sm font-semibold">⚙ Configuration</button>
+        <button @click="$router.push('/admin/sauvegarde')"
+          class="bg-violet-800 text-white rounded-xl p-3 text-center text-sm font-semibold">💾 Sauvegarde</button>
+      </div>
     </div>
     <BottomNav :active="1" role="admin" />
   </AppLayout>
