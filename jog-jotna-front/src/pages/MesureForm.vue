@@ -1,17 +1,17 @@
 <template>
-  <AppLayout>
-    <div class="bg-green-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" nav-role="encadreur">
+    <div class="bg-green-700 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">Mesure nutritionnelle</h1>
       <p v-if="enfant" class="text-green-200 text-sm">{{ enfant.prenom }} {{ enfant.nom }}</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body form-container">
       <div class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-gray-600 mb-1">Date de mesure</label>
           <input v-model="form.date_mesure" type="date" class="w-full border rounded-xl px-3 py-2.5 text-sm" />
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid-form">
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-1">Poids (kg) *</label>
             <input v-model.number="form.poids" type="number" step="0.1" min="5" max="50"
@@ -41,7 +41,6 @@
         </button>
       </div>
     </div>
-    <BottomNav :active="1" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -50,7 +49,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const props = defineProps({ id: { type: Number, required: true } });
 const router = useRouter();

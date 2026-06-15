@@ -1,10 +1,10 @@
 <template>
-  <AppLayout>
-    <div class="bg-violet-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" nav-role="encadreur">
+    <div class="bg-violet-700 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">📅 Planifier une séance</h1>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body form-container">
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-1">Date *</label>
@@ -35,7 +35,6 @@
         </button>
       </div>
     </div>
-    <BottomNav :active="1" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -44,7 +43,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const router = useRouter();
 const enfants = ref([]);

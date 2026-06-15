@@ -1,6 +1,6 @@
 <template>
-  <AppLayout>
-    <div class="bg-red-800 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="0" :nav-role="authStore.user?.role === 'admin' ? 'admin' : 'responsable'">
+    <div class="bg-red-800 page-header">
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-white text-lg font-bold">{{ authStore.user?.prenom }} - Responsable</h1>
@@ -10,14 +10,14 @@
           <span v-if="authStore.notifNonLues > 0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ authStore.notifNonLues }}</span>
         </button>
       </div>
-      <div class="grid grid-cols-3 gap-2 mt-4">
+      <div class="grid-kpis mt-4 max-w-3xl">
         <div v-for="k in kpis" :key="k.label" class="bg-white bg-opacity-20 rounded-xl p-3 text-center">
           <div class="text-white text-2xl font-bold">{{ k.val }}</div>
           <div class="text-red-200 text-xs">{{ k.label }}</div>
         </div>
       </div>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else>
         <div v-if="dashboard.seances_semaine != null" class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center gap-3">
@@ -25,6 +25,8 @@
           <p class="text-blue-800 text-sm"><strong>{{ dashboard.seances_semaine }}</strong> séance(s) planifiée(s) cette semaine</p>
         </div>
 
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        <div>
         <h2 class="font-bold text-gray-800 mb-3">Enfants en alerte</h2>
         <div v-for="e in dashboard.enfants_alerte || []" :key="e.id"
           class="bg-white rounded-xl shadow-sm p-3 mb-2 flex items-center gap-3 border-l-4 border-red-500">
@@ -35,8 +37,10 @@
           <span class="text-xs px-2 py-1 rounded-full bg-red-100 text-red-700 font-semibold">{{ e.niveau }}</span>
         </div>
         <p v-if="!(dashboard.enfants_alerte || []).length" class="text-gray-400 text-sm mb-4">Aucun enfant en alerte urgente.</p>
+        </div>
 
-        <h2 class="font-bold text-gray-800 mb-3 mt-4">Répartition par village</h2>
+        <div>
+        <h2 class="font-bold text-gray-800 mb-3">Répartition par village</h2>
         <div v-for="v in dashboard.par_village || []" :key="v.village"
           class="bg-white rounded-xl shadow-sm p-3 mb-2 flex justify-between items-center">
           <div>
@@ -46,6 +50,8 @@
           <span class="text-xs px-2 py-1 rounded-full" :class="v.alertes > 0 ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'">
             {{ v.alertes }} alerte(s)
           </span>
+        </div>
+        </div>
         </div>
 
         <h2 class="font-bold text-gray-800 mb-3 mt-4">Tendance nutritionnelle (6 mois)</h2>
@@ -62,7 +68,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mt-4">
+        <div class="grid-actions mt-4">
           <button @click="$router.push('/rapports')" class="bg-red-700 text-white rounded-xl p-4 text-center">
             <div class="text-2xl mb-1">📊</div><div class="text-sm font-semibold">Rapports</div>
           </button>
@@ -84,7 +90,6 @@
         </div>
       </template>
     </div>
-    <BottomNav :active="0" :role="authStore.user?.role === 'admin' ? 'admin' : 'responsable'" />
   </AppLayout>
 </template>
 
@@ -92,7 +97,6 @@
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();

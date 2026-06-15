@@ -1,24 +1,24 @@
 <template>
-  <AppLayout>
-    <div class="bg-violet-900 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" nav-role="admin">
+    <div class="bg-violet-900 page-header">
       <h1 class="text-white text-lg font-bold">👥 Gestion des comptes</h1>
       <p class="text-violet-200 text-sm">Administration des utilisateurs</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body">
       <button @click="afficherForm = !afficherForm"
         class="w-full bg-violet-700 text-white font-semibold py-3 rounded-xl mb-4 text-sm">
         {{ afficherForm ? 'Annuler' : '+ Nouveau compte' }}
       </button>
 
       <div v-if="afficherForm" class="bg-white rounded-xl shadow-sm p-4 mb-4 space-y-3">
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid-form">
           <input v-model="form.prenom" placeholder="Prénom *" class="border rounded-lg px-3 py-2 text-sm" />
           <input v-model="form.nom" placeholder="Nom *" class="border rounded-lg px-3 py-2 text-sm" />
         </div>
         <input v-model="form.email" type="email" placeholder="Email *" class="w-full border rounded-lg px-3 py-2 text-sm" />
         <input v-model="form.telephone" placeholder="Téléphone" class="w-full border rounded-lg px-3 py-2 text-sm" />
         <input v-model="form.mot_de_passe" type="password" placeholder="Mot de passe * (min 6)" class="w-full border rounded-lg px-3 py-2 text-sm" />
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid-form">
           <select v-model="form.role" class="border rounded-lg px-3 py-2 text-sm">
             <option value="parent">Parent</option>
             <option value="encadreur">Encadreur</option>
@@ -56,14 +56,13 @@
             class="text-xs text-red-600 font-semibold px-2 py-1">Désactiver</button>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-3 mt-2">
+      <div class="grid-actions mt-2">
         <button @click="$router.push('/admin/config')"
           class="bg-violet-600 text-white rounded-xl p-3 text-center text-sm font-semibold">⚙ Configuration</button>
         <button @click="$router.push('/admin/sauvegarde')"
           class="bg-violet-800 text-white rounded-xl p-3 text-center text-sm font-semibold">💾 Sauvegarde</button>
       </div>
     </div>
-    <BottomNav :active="1" role="admin" />
   </AppLayout>
 </template>
 
@@ -71,7 +70,6 @@
 import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();

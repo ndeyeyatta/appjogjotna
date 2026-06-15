@@ -1,15 +1,15 @@
 <template>
-  <AppLayout>
-    <div class="bg-violet-900 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="3" nav-role="admin">
+    <div class="bg-violet-900 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">💾 Sauvegarde des données</h1>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body max-w-2xl mx-auto">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else>
         <div class="bg-white rounded-xl shadow-sm p-4 mb-4">
           <h2 class="font-bold text-gray-800 mb-3">État de la base</h2>
-          <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-center">
             <div v-for="(val, key) in statsLabels" :key="key" class="bg-gray-50 rounded-lg p-3">
               <div class="text-xl font-bold text-violet-700">{{ stats[key] ?? 0 }}</div>
               <div class="text-xs text-gray-500">{{ val }}</div>
@@ -28,7 +28,6 @@
         <p v-if="erreur" class="text-red-600 text-sm text-center mt-3">{{ erreur }}</p>
       </template>
     </div>
-    <BottomNav :active="3" role="admin" />
   </AppLayout>
 </template>
 
@@ -36,7 +35,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const stats = ref({});
 const chargement = ref(true);

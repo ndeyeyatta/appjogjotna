@@ -1,17 +1,19 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" :nav-role="authStore.user?.role === 'parent' ? 'parent' : 'encadreur'">
+    <div class="bg-blue-700 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 v-if="enfant" class="text-white text-lg font-bold">{{ enfant.prenom }} {{ enfant.nom }}</h1>
       <p v-if="enfant" class="text-blue-200 text-sm">{{ enfant.age_ans }} - {{ enfant.village }}</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else-if="enfant">
-        <div v-if="enfant.alertes?.length" class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
+        <div v-if="enfant.alertes?.length" class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4 lg:col-span-2">
           <p class="text-amber-800 text-sm font-semibold">⚠ {{ enfant.alertes.length }} alerte(s) active(s)</p>
         </div>
 
+        <div class="fiche-grid">
+        <div>
         <div v-if="Object.values(radarScores).some(v => v > 0)" class="mb-4">
           <h2 class="font-bold text-gray-800 mb-3">Profil de développement</h2>
           <div class="bg-white rounded-xl shadow-sm p-3">
@@ -23,7 +25,9 @@
         <CourbeOMS v-if="enfant.mesures_nutritionnelles?.length"
           :mesures="enfant.mesures_nutritionnelles" :sexe="enfant.sexe" class="mb-4" />
         <p v-else class="text-gray-400 text-sm mb-4">Aucune mesure nutritionnelle enregistrée.</p>
+        </div>
 
+        <div>
         <h2 class="font-bold text-gray-800 mb-3">Dernières évaluations</h2>
         <div v-for="ev in enfant.evaluations?.slice(0, 5)" :key="ev.id"
           @click="$router.push(`/evaluations/${ev.id}/resultat`)"
@@ -34,18 +38,19 @@
           </div>
           <span class="text-sm font-bold text-blue-700">{{ ev.score_global }}%</span>
         </div>
+        </div>
+        </div>
 
-        <div v-if="peutGerer" class="grid grid-cols-2 gap-3 mt-4">
+        <div v-if="peutGerer" class="grid-actions mt-4 lg:col-span-2">
           <button @click="$router.push(`/evaluations/creer?enfant=${enfant.id}`)"
             class="bg-blue-600 text-white py-3 rounded-xl font-semibold text-sm">📋 Évaluation</button>
           <button @click="$router.push(`/enfants/${enfant.id}/mesure`)"
             class="bg-green-600 text-white py-3 rounded-xl font-semibold text-sm">⚖ Mesure</button>
           <button @click="$router.push(`/enfants/${enfant.id}/modifier`)"
-            class="bg-gray-700 text-white py-3 rounded-xl font-semibold text-sm col-span-2">✏ Modifier profil</button>
+            class="bg-gray-700 text-white py-3 rounded-xl font-semibold text-sm sm:col-span-2 lg:col-span-4">✏ Modifier profil</button>
         </div>
       </template>
     </div>
-    <BottomNav :active="1" :role="authStore.user?.role === 'parent' ? 'parent' : 'encadreur'" />
   </AppLayout>
 </template>
 
@@ -53,7 +58,6 @@
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import CourbeOMS from '@/components/CourbeOMS.vue';
 import RadarChart from '@/components/RadarChart.vue';
 import { useAuthStore } from '@/stores/authStore';

@@ -1,11 +1,11 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="2" nav-role="encadreur">
+    <div class="bg-blue-700 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">Nouvelle évaluation</h1>
       <p v-if="enfant" class="text-blue-200 text-sm">{{ enfant.nom_complet }} : {{ enfant.age_ans }}</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body form-container">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else>
         <div v-if="!enfantId" class="mb-4">
@@ -18,7 +18,7 @@
         <template v-if="enfant">
           <div class="mb-4">
             <label class="block text-sm font-bold text-gray-700 mb-2">Dimension *</label>
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <button v-for="d in dimensions" :key="d.val" @click="dimension = d.val"
                 class="py-3 rounded-xl border-2 text-sm font-semibold transition"
                 :class="dimension === d.val ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-500'">
@@ -49,7 +49,6 @@
         </template>
       </template>
     </div>
-    <BottomNav :active="2" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -58,7 +57,6 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const props = defineProps({ enfantId: { type: Number, default: null } });
 const router = useRouter();

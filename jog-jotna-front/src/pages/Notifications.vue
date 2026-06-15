@@ -1,6 +1,6 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-800 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="3" :nav-role="authStore.user?.role === 'admin' ? 'admin' : authStore.user?.role">
+    <div class="bg-blue-800 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <div class="flex items-center justify-between">
         <h1 class="text-white text-lg font-bold">🔔 Notifications</h1>
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body max-w-3xl mx-auto">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
 
       <div v-else>
@@ -30,7 +30,6 @@
         </div>
       </div>
     </div>
-    <BottomNav :active="3" :role="authStore.user?.role" />
   </AppLayout>
 </template>
 
@@ -38,7 +37,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore     = useAuthStore();

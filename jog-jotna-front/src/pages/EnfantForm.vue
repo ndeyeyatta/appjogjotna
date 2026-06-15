@@ -1,12 +1,12 @@
 <template>
-  <AppLayout>
-    <div class="bg-gray-800 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" nav-role="encadreur">
+    <div class="bg-gray-800 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">{{ isEdit ? 'Modifier le profil' : 'Nouvel enfant' }}</h1>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body form-container">
       <div class="space-y-4">
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid-form">
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-1">Prénom *</label>
             <input v-model="form.prenom" class="w-full border rounded-xl px-3 py-2.5 text-sm" />
@@ -16,7 +16,7 @@
             <input v-model="form.nom" class="w-full border rounded-xl px-3 py-2.5 text-sm" />
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid-form">
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-1">Date naissance *</label>
             <input v-model="form.date_naissance" type="date" class="w-full border rounded-xl px-3 py-2.5 text-sm" />
@@ -63,7 +63,6 @@
         </button>
       </div>
     </div>
-    <BottomNav :active="1" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -72,7 +71,6 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const props = defineProps({ id: { type: Number, default: null } });
 const router = useRouter();

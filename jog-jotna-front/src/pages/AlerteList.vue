@@ -1,10 +1,10 @@
 <template>
-  <AppLayout>
-    <div class="bg-red-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="2" :nav-role="authStore.user?.role === 'admin' ? 'admin' : authStore.user?.role">
+    <div class="bg-red-700 page-header">
       <h1 class="text-white text-lg font-bold">⚠ Alertes actives</h1>
       <p class="text-red-200 text-sm">{{ alertes.length }} alerte(s)</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <div v-for="a in alertes" :key="a.id"
         class="bg-white rounded-xl shadow-sm p-4 mb-3"
@@ -28,7 +28,6 @@
       </div>
       <div v-if="!chargement && !alertes.length" class="text-center text-gray-400 py-8">Aucune alerte active</div>
     </div>
-    <BottomNav :active="2" :role="authStore.user?.role" />
   </AppLayout>
 </template>
 
@@ -36,7 +35,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import BadgeAlerte from '@/components/BadgeAlerte.vue';
 import { useAuthStore } from '@/stores/authStore';
 

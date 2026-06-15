@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white border-t border-gray-200 flex z-50">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex z-50 safe-bottom">
     <button
       v-for="(item, i) in items"
       :key="item.to"
@@ -15,38 +15,12 @@
 
 <script setup>
 import { computed } from 'vue';
+import { getNavItems } from '@/config/navMenus';
 
 const props = defineProps({
   active: { type: Number, default: 0 },
-  role:   { type: String, default: 'parent' },
+  role: { type: String, default: 'parent' },
 });
 
-const menus = {
-  parent: [
-    { to: '/dashboard/parent',    icon: '🏠', label: 'Accueil' },
-    { to: '/enfants',             icon: '👶', label: 'Enfants' },
-    { to: '/observations/creer',  icon: '✏',  label: 'Signaler' },
-    { to: '/profil',              icon: '👤', label: 'Profil' },
-  ],
-  encadreur: [
-    { to: '/dashboard/encadreur',      icon: '🏠', label: 'Accueil' },
-    { to: '/enfants',                  icon: '👶', label: 'Enfants' },
-    { to: '/observations/validation',  icon: '📋', label: 'Signalements' },
-    { to: '/profil',                   icon: '👤', label: 'Profil' },
-  ],
-  responsable: [
-    { to: '/dashboard/responsable', icon: '🏠', label: 'Accueil' },
-    { to: '/rapports',              icon: '📊', label: 'Rapports' },
-    { to: '/alertes',               icon: '⚠',  label: 'Alertes' },
-    { to: '/profil',                icon: '👤', label: 'Profil' },
-  ],
-  admin: [
-    { to: '/dashboard/responsable', icon: '🏠', label: 'Accueil' },
-    { to: '/admin/utilisateurs',    icon: '👥', label: 'Comptes' },
-    { to: '/admin/config',          icon: '⚙',  label: 'Config' },
-    { to: '/profil',                icon: '👤', label: 'Profil' },
-  ],
-};
-
-const items = computed(() => menus[props.role] || menus.parent);
+const items = computed(() => getNavItems(props.role));
 </script>

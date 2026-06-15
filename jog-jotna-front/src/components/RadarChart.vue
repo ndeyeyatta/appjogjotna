@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="max-w-full mx-auto" style="max-height: 400px;">
     <Radar :data="chartData" :options="chartOptions" />
   </div>
 </template>
@@ -33,6 +33,8 @@ const chartData = computed(() => ({
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: true,
+  aspectRatio: 1.2,
   scales: { r: { beginAtZero: true, max: 100, ticks: { stepSize: 25 } } },
   plugins: { legend: { display: false } },
 };

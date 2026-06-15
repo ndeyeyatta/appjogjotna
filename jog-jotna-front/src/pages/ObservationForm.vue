@@ -1,13 +1,13 @@
 <template>
-  <AppLayout>
-    <div class="bg-teal-700 px-4 pt-4 pb-6"><button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button><h1 class="text-white text-lg font-bold">Signaler une observation</h1></div>
-    <div class="px-4 pt-4 pb-24">
+  <AppLayout :nav-active="2" nav-role="parent">
+    <div class="bg-teal-700 page-header"><button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button><h1 class="text-white text-lg font-bold">Signaler une observation</h1></div>
+    <div class="page-body form-container">
       <div class="flex rounded-xl bg-gray-100 p-1 mb-5"><button @click="langue='fr'" :class="langue==='fr'?'bg-teal-600 text-white':'text-gray-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold">🇫🇷 Français</button><button @click="langue='wo'" :class="langue==='wo'?'bg-teal-600 text-white':'text-gray-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold">🇸🇳 Wolof</button></div>
       <div class="mb-4"><label class="block text-sm font-bold text-gray-700 mb-1">Enfant concerné *</label>
         <select v-model="form.enfant_id" class="w-full border-2 border-teal-400 rounded-xl px-4 py-3 text-sm focus:outline-none"><option value="">-- Choisir --</option><option v-for="e in enfants" :key="e.id" :value="e.id">{{ e.prenom }} {{ e.nom }}</option></select>
       </div>
       <div class="mb-5"><label class="block text-sm font-bold text-gray-700 mb-2">Catégorie *</label>
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
           <button v-for="cat in categories" :key="cat.val" @click="form.categorie=cat.val" class="p-3 rounded-xl border-2 text-center transition" :class="form.categorie===cat.val?'border-teal-500 bg-teal-50':'border-gray-200 bg-white'">
             <div class="text-2xl mb-1">{{ cat.icone }}</div><div class="text-xs font-semibold" :class="form.categorie===cat.val?'text-teal-700':'text-gray-500'">{{ langue==='fr'?cat.fr:cat.wo }}</div>
           </button>
@@ -26,7 +26,6 @@
         {{ chargement?'Envoi en cours...':'📤 Envoyer l\'observation' }}
       </button>
     </div>
-    <BottomNav :active="1" role="parent" />
   </AppLayout>
 </template>
 <script setup>
@@ -34,7 +33,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 const props = defineProps({ enfantId:{ type:Number, default:null } });
 const router = useRouter();
 const langue=ref('fr'); const enfants=ref([]); const chargement=ref(false); const erreur=ref('');

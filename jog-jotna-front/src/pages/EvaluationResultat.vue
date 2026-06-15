@@ -1,10 +1,10 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-700 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="2" nav-role="encadreur">
+    <div class="bg-blue-700 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">Résultat de l'évaluation</h1>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body max-w-2xl mx-auto">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else-if="evaluation">
 
@@ -43,7 +43,7 @@
         </div>
 
         <!-- Actions -->
-        <div class="flex gap-3 mt-6">
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
           <button @click="$router.push(`/enfants/${evaluation.enfant_id}`)"
             class="flex-1 bg-blue-600 text-white py-3 rounded-xl font-semibold text-sm">
             Voir dossier enfant
@@ -55,7 +55,6 @@
         </div>
       </template>
     </div>
-    <BottomNav :active="2" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -63,7 +62,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const props = defineProps({ id: { type: Number, required: true } });
 const evaluation = ref(null);

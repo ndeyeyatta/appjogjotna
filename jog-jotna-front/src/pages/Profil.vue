@@ -1,10 +1,10 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-800 px-4 pt-4 pb-10">
+  <AppLayout :nav-active="3" :nav-role="authStore.user?.role === 'admin' ? 'admin' : authStore.user?.role">
+    <div class="bg-blue-800 page-header">
       <h1 class="text-white text-lg font-bold">👤 Mon profil</h1>
     </div>
 
-    <div class="px-4 -mt-4 pb-24">
+    <div class="page-body -mt-4 max-w-2xl mx-auto">
       <!-- Carte profil -->
       <div class="bg-white rounded-2xl shadow-sm p-5 mb-4 text-center">
         <div class="w-20 h-20 rounded-full bg-blue-100 border-4 border-blue-500 flex items-center justify-center mx-auto mb-3">
@@ -62,7 +62,6 @@
       </button>
     </div>
 
-    <BottomNav :active="3" :role="authStore.user?.role" />
   </AppLayout>
 </template>
 
@@ -71,7 +70,6 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();

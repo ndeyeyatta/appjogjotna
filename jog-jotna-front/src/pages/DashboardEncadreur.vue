@@ -1,17 +1,20 @@
 <template>
-  <AppLayout>
-    <div class="bg-blue-800 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="0" nav-role="encadreur">
+    <div class="bg-blue-800 page-header">
       <div class="flex items-center justify-between">
         <div><h1 class="text-white text-lg font-bold">{{ authStore.user?.prenom }} - Encadreur</h1><p class="text-blue-200 text-sm">{{ dateAujourdhui }}</p></div>
         <button @click="$router.push('/notifications')" class="relative text-white text-2xl">🔔
           <span v-if="authStore.notifNonLues>0" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ authStore.notifNonLues }}</span>
         </button>
       </div>
-      <div class="flex gap-2 mt-4">
-        <div v-for="k in kpis" :key="k.label" class="flex-1 bg-white bg-opacity-20 rounded-xl p-3 text-center"><div class="text-white text-2xl font-bold">{{ k.val }}</div><div class="text-blue-200 text-xs">{{ k.label }}</div></div>
+      <div class="grid-kpis mt-4 max-w-3xl">
+        <div v-for="k in kpis" :key="k.label" class="bg-white bg-opacity-20 rounded-xl p-3 text-center">
+          <div class="text-white text-2xl font-bold">{{ k.val }}</div>
+          <div class="text-blue-200 text-xs">{{ k.label }}</div>
+        </div>
       </div>
     </div>
-    <div class="px-4 pt-2 pb-24">
+    <div class="page-body-tight">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <template v-else>
         <div class="flex items-center justify-between mb-2"><h2 class="font-bold text-gray-800">⚠ Alertes actives</h2><span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">{{ alertes.length }}</span></div>
@@ -24,7 +27,7 @@
           <p class="text-amber-800 text-sm font-semibold">{{ dashboard.observations_attente }} signalement(s) à valider</p>
           <button @click="$router.push('/observations/validation')" class="bg-amber-600 text-white text-xs px-3 py-2 rounded-lg font-semibold">Voir</button>
         </div>
-        <div class="grid grid-cols-2 gap-3 mt-4">
+        <div class="grid-actions mt-4">
           <button @click="$router.push('/evaluations/creer')" class="bg-blue-600 text-white rounded-xl p-4 text-center"><div class="text-2xl mb-1">📋</div><div class="text-sm font-semibold">Évaluation</div></button>
           <button @click="$router.push('/observations/validation')" class="bg-amber-600 text-white rounded-xl p-4 text-center"><div class="text-2xl mb-1">📝</div><div class="text-sm font-semibold">Signalements</div></button>
           <button @click="$router.push('/alertes')" class="bg-red-600 text-white rounded-xl p-4 text-center"><div class="text-2xl mb-1">⚠</div><div class="text-sm font-semibold">Alertes</div></button>
@@ -33,14 +36,12 @@
         </div>
       </template>
     </div>
-    <BottomNav :active="0" role="encadreur" />
   </AppLayout>
 </template>
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 const authStore = useAuthStore();
 const dashboard = ref({}); const alertes = ref([]); const chargement = ref(true);

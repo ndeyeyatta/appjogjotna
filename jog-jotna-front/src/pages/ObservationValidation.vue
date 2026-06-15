@@ -1,11 +1,11 @@
 <template>
-  <AppLayout>
-    <div class="bg-amber-600 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="2" nav-role="encadreur">
+    <div class="bg-amber-600 page-header">
       <button @click="$router.back()" class="text-white mb-2 text-sm">← Retour</button>
       <h1 class="text-white text-lg font-bold">📋 Signalements à valider</h1>
       <p class="text-amber-100 text-sm">{{ observations.length }} en attente</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body max-w-3xl mx-auto">
       <div v-if="chargement" class="text-center py-10 text-gray-400">Chargement...</div>
       <div v-for="o in observations" :key="o.id" class="bg-white rounded-xl shadow-sm p-4 mb-4">
         <div class="flex items-start justify-between gap-2 mb-2">
@@ -38,7 +38,6 @@
         <p>Aucun signalement en attente</p>
       </div>
     </div>
-    <BottomNav :active="2" role="encadreur" />
   </AppLayout>
 </template>
 
@@ -46,7 +45,6 @@
 import { ref, reactive, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 
 const observations = ref([]);
 const chargement = ref(true);

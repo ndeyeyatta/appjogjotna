@@ -1,10 +1,11 @@
 <template>
-  <AppLayout>
-    <div class="bg-red-800 px-4 pt-4 pb-6">
+  <AppLayout :nav-active="1" :nav-role="authStore.user?.role === 'admin' ? 'admin' : 'responsable'">
+    <div class="bg-red-800 page-header">
       <h1 class="text-white text-lg font-bold">📊 Rapports</h1>
       <p class="text-red-200 text-sm">Génération PDF et Excel</p>
     </div>
-    <div class="px-4 pt-4 pb-24">
+    <div class="page-body">
+      <div class="max-w-3xl">
       <div class="bg-white rounded-xl shadow-sm p-4 mb-6 space-y-3">
         <h2 class="font-bold text-gray-800 text-sm">Nouveau rapport</h2>
         <div>
@@ -49,8 +50,8 @@
         </button>
       </div>
       <div v-if="!listeChargement && !rapports.length" class="text-center text-gray-400 py-8">Aucun rapport disponible</div>
+      </div>
     </div>
-    <BottomNav :active="1" :role="authStore.user?.role === 'admin' ? 'admin' : 'responsable'" />
   </AppLayout>
 </template>
 
@@ -58,7 +59,6 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AppLayout from '@/layouts/AppLayout.vue';
-import BottomNav from '@/components/BottomNav.vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();

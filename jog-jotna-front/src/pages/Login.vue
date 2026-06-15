@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-blue-900 to-blue-100 flex items-center justify-center p-4">
-    <div class="w-full max-w-sm">
+  <div class="min-h-screen bg-gradient-to-b from-blue-900 to-blue-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="w-full max-w-sm sm:max-w-md lg:max-w-lg">
       <div class="text-center mb-8">
         <div class="inline-block bg-white rounded-2xl px-8 py-4 shadow-lg mb-4">
-          <h1 class="text-3xl font-bold text-blue-900">JÒG</h1>
+          <h1 class="text-3xl sm:text-4xl font-bold text-blue-900">JÒG</h1>
           <p class="text-blue-600 font-semibold text-sm">JOTNA</p>
         </div>
-        <h2 class="text-white text-xl font-semibold">Bienvenue</h2>
+        <h2 class="text-white text-xl sm:text-2xl font-semibold">Bienvenue</h2>
         <p class="text-blue-200 text-sm">Connectez-vous à votre espace</p>
       </div>
-      <div class="bg-white rounded-2xl shadow-2xl p-6">
+      <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
         <div class="flex rounded-xl bg-gray-100 p-1 mb-6">
           <button @click="langue='fr'" :class="langue==='fr'?'bg-teal-600 text-white':'text-gray-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold transition">🇫🇷 Français</button>
           <button @click="langue='wo'" :class="langue==='wo'?'bg-teal-600 text-white':'text-gray-500'" class="flex-1 py-2 rounded-lg text-sm font-semibold transition">🇸🇳 Wolof</button>
@@ -35,7 +35,7 @@
         </form>
         <div class="mt-6">
           <p class="text-center text-xs text-gray-400 mb-3">Accès selon votre rôle</p>
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <div class="flex-1 text-center py-2 rounded-lg bg-teal-50 border border-teal-200"><div class="text-lg">👨‍👩‍👧</div><div class="text-xs font-semibold text-teal-700">Parent</div></div>
             <div class="flex-1 text-center py-2 rounded-lg bg-blue-50 border border-blue-200"><div class="text-lg">👩‍🏫</div><div class="text-xs font-semibold text-blue-700">Encadreur</div></div>
             <div class="flex-1 text-center py-2 rounded-lg bg-red-50 border border-red-200"><div class="text-lg">📊</div><div class="text-xs font-semibold text-red-700">Responsable</div></div>

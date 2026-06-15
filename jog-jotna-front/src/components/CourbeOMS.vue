@@ -1,8 +1,10 @@
 <template>
-  <div class="bg-white rounded-xl p-4">
-    <h3 class="font-bold text-gray-700 mb-3 text-sm">📈 Courbe de croissance — Normes OMS</h3>
-    <Line :data="chartData" :options="chartOptions" />
-    <div class="flex gap-3 mt-2 text-xs">
+  <div class="bg-white rounded-xl p-4 max-w-full overflow-hidden">
+    <h3 class="font-bold text-gray-700 mb-3 text-sm sm:text-base">📈 Courbe de croissance — Normes OMS</h3>
+    <div class="relative w-full" style="min-height: 250px;">
+      <Line :data="chartData" :options="chartOptions" />
+    </div>
+    <div class="flex flex-wrap gap-3 mt-2 text-xs">
       <span class="flex items-center gap-1"><span class="w-3 h-1 bg-blue-500 inline-block rounded"></span>Enfant</span>
       <span class="flex items-center gap-1"><span class="w-3 h-1 bg-gray-300 inline-block rounded"></span>Médiane OMS</span>
       <span class="flex items-center gap-1"><span class="w-3 h-1 bg-amber-400 inline-block rounded"></span>Seuil -2DS</span>
@@ -84,6 +86,8 @@ const chartData = computed(() => {
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: true,
+  aspectRatio: 1.5,
   plugins: {
     legend: { display: false },
     tooltip: { mode: 'index', intersect: false },
